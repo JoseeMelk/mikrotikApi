@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Queue configuration{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/queue_configuration/queue/queue.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<h1 class="title-main">Control de Ancho de Banda</h1>
+<form class="form-container"  method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="ip">
+        <label for="dispositivo">Dispositivo (IP):</label>
+        <input type="text" id="dispositivo" name="target" class="form-control ip-form" placeholder="192.168.2.133">
+        </div>
+        <div class="upload-download">
+            <div>
+                <label for="subida">Subida (Mbps):</label>
+                <input type="number" id="subida" name="upload" class="form-control" placeholder="10">
+            </div>
+            <div>
+                <label for="bajada">Bajada (Mbps):</label>
+                <input type="number" id="bajada" name="download" class="form-control" placeholder="20">
+            </div>
+        </div>
+    </div>
+    <div class="form-group-inline">
+        <button type="submit" id="agregar">Enviar</button>
+    </div>
+</form>
+    <table>
+        <thead>
+            <tr>
+                <th>Dispositivo</th>
+                <th>Subida (Mbps)</th>
+                <th>Bajada (Mbps)</th>
+            </tr>
+        </thead>
+        <tbody id="tablaDispositivos">
+            {% if device %}
+            {% for device in devices %}
+                <tr>
+                    <td>{{ device.ip }}</td>
+                    <td>{{ device.upload }}</td>
+                    <td>{{ device.download }}</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+    <script src="{% static 'js/queue_configuration/queue/queue.js' %}"></script>
+{% endblock %}

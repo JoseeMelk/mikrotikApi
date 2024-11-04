@@ -1,0 +1,50 @@
+<!-- authentication/templates/authentication/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/authentication/login/login.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2 class="my-4">Login to MikroTik</h2>
+        <form method="post" class="form-login">
+            {% csrf_token %}
+            <div class="ip-port">
+                <p class="p-ip">
+                    <label for="id_ip_address">Ip address:</label>
+                    <input type="text" name="host" class="form-control ip" placeholder="192.168.0.1" required="" id="id_ip_address">     
+                </p>  
+                <p class="p-port">
+                    <label for="id_port" class="port-label">Port:</label>
+                    <input type="number" name="port" value="8728" class="form-control port" placeholder="Port" required="" id="id_port">   
+                </p>   
+            </div>
+            <p>
+                <label for="id_username">Username:</label>
+                <input type="text" name="username" class="form-control" placeholder="Username" required="" id="id_username">            
+            </p>  
+            <p>
+                <label for="id_password">Password:</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" required="" id="id_password">  
+            </p>
+            <div class="btn-container">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="/home">IP</a>
+            </div>
+        </form>
+
+        <!-- Mostrar errores del formulario -->
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

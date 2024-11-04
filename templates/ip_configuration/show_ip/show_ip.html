@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}IP addr{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/ip_configuration/show_ip/show_ip.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="options" id="add-margin">
+    <h1>Configuraciones IP</h1>
+    <div class="options-btn"> 
+        <a href="/add-ip/" id="add-ip-link" class="option-button">Agregar IP</a> <!-- Redirige a otra página -->
+        <a href="/show-interface/" id="view-interfaces-button" class="option-button">Ver Interfaces</a> <!-- Pop-up para ver interfaces -->
+    </div>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Dirección</th>
+            <th>Red</th>
+            <th>Interfaz</th>
+            <th>Inválido</th>
+            <th>Dinámico</th>
+            <th>Deshabilitado</th>
+            <th>Acciones</th> 
+        </tr>
+    </thead>
+    <tbody>
+        {% for ip in ip_addresses %}
+        <tr>
+            <td>{{ ip.id }}</td>
+            <td>{{ ip.address }}</td>
+            <td>{{ ip.network }}</td>
+            <td>{{ ip.interface }}</td>
+            <td>{{ ip.invalid }}</td>
+            <td>{{ ip.dynamic }}</td>
+            <td>{{ ip.disabled }}</td>
+            <td>
+                <form action="{% url 'delete_ip' ip.interface %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="delete option-button">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

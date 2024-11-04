@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaces MikroTik</title>
+</head>
+<body>
+    <h1>Interfaces Disponibles</h1>
+    <ul>
+        {% for interface in interfaces %}
+            <li>{{ interface.name }}</li>  <!-- Asegúrate de que 'name' sea la clave correcta -->
+        {% endfor %}
+    </ul>
+</body>
+</html>

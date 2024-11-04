@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Interfaz{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/ip_configuration/show_interface/show_interface.css' %}">
+ {% endblock %}
+
+{% block content %}
+    <h1 class="title-main">Lista de Interfaces</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Estado de Funcionamiento</th>
+                <th>Habilitado/Deshabilitado</th>
+                <th>MAC Address</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for interface in interfaces %}
+                <tr>
+                    <td>{{ interface.name }}</td>
+                    <td>{{ interface.running }}</td>
+                    <td>{{ interface.disabled|yesno:"Deshabilitado,Habilitado" }}</td>
+                    <td>{{ interface.mac_address }}</td>
+                    <td>
+                        <button onclick="">
+                            {% if interface.disabled %}
+                                Habilitar
+                            {% else %}
+                                Deshabilitar
+                            {% endif %}
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

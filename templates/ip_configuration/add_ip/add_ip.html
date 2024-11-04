@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Interfaces</title>
+    <link rel="stylesheet" href="{% static 'css/ip_configuration/add_ip/add_ip.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="/show-ip/"><i class="fas fa-arrow-left"></i> Volver</a> 
+        </div>
+        <h2>Configuración de Interfaces</h2>
+        <form id="interfaceForm" method="post">
+            {% csrf_token %}
+            <div class="field-group">
+                <label for="interfaceName">Nombre de la Interfaz: </label>
+                <select id="interfaceSelect" name="interfaceSelect" required>
+                    {% for interface in interfaces %}
+                        <option value="{{ interface.name }}">{{ interface.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="field-group input-group">
+                <div class="ip-group">
+                    <label for="ipInput">Dirección IP:</label>
+                    <input type="text" id="ipInput" name="ipInput" placeholder="192.168.20.2" required>
+                </div>
+
+                <div class="subnet-group">
+                    <label for="subnetMask" class="subnet-label">Máscara de subred:</label>
+                    <input type="text" id="subnetMask" name="subnetMask" value="24" required>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <button type="submit" class="submit-btn">Enviar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Mi Proyecto{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    {% block link %}
+    {% endblock %}
+</head>
+<body>
+    
+    <div class="container-section">
+        <aside class="menu">
+            <h1>Opciones</h1>
+            <ul class="menu-list">
+              <li><a href="/show-interface">Ver interfaces</a></li>
+              <li><a href="/show-ip">Ver ip</a></li>
+              <li><a href="/show-queue">Queue</a></li>
+              <li><a href="/add-user">Agregar Usuario</a></li>
+              <li><a href="/close">Cerrar Sesion</a></li>
+            </ul>
+        </aside>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+</body>
+</html>

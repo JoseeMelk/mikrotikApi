@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interfaces</title>
+    <link rel="stylesheet" type="text/css" href="Interface.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    
+    <div class="container-section">
+        <aside class="menu">
+            <h1>Menú Lateral</h1>
+            <ul class="menu-list">
+              <li><a href="#">Enlace 1</a></li>
+              <li><a href="#">Enlace 2</a></li>
+              <li><a href="#">Enlace 3</a></li>
+            </ul>
+        </aside>
+        <main>
+            <h1>Lista de Interfaces</h1>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Estado de Funcionamiento</th>
+                        <th>Habilitado/Deshabilitado</th>
+                        <th>MAC Address</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for interface in interfaces %}
+                    <tr>
+                        <td>{{ interface.name }}</td>
+                        <td>{{ interface.running }}</td>
+                        <td>{{ interface.disabled|yesno:"Deshabilitado,Habilitado" }}</td>
+                        <td>{{ interface.mac_address }}</td>
+                        <td>
+                            <button onclick="">
+                                {% if interface.disabled %}
+                                    Habilitar
+                                {% else %}
+                                    Deshabilitar
+                                {% endif %}
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>
+
+
