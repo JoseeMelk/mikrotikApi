@@ -13,18 +13,26 @@
 <form class="form-container"  method="post">
     {% csrf_token %}
     <div class="form-group">
+        <div class="name-queue">
+            <label for="nombre-queue">Nombre:</label>
+            <input type="text" id="nombre-queue" name="name" class="form-control" placeholder="PC1" required>
+        </div>
         <div class="ip">
         <label for="dispositivo">Dispositivo (IP):</label>
-        <input type="text" id="dispositivo" name="target" class="form-control ip-form" placeholder="192.168.2.133">
+        <input type="text" id="dispositivo" name="target" class="form-control ip-form" placeholder="192.168.2.133" required>
+        <!--
+        <label class="mask-sm">/</label>
+        <input type="text" id="mascara" name="mask" class="form-control mask" placeholder="24" value="24">
+        -->
         </div>
         <div class="upload-download">
             <div>
                 <label for="subida">Subida (Mbps):</label>
-                <input type="number" id="subida" name="upload" class="form-control" placeholder="10">
+                <input type="number" id="subida" name="upload" class="form-control" placeholder="10" required>
             </div>
             <div>
                 <label for="bajada">Bajada (Mbps):</label>
-                <input type="number" id="bajada" name="download" class="form-control" placeholder="20">
+                <input type="number" id="bajada" name="download" class="form-control" placeholder="20" required>
             </div>
         </div>
     </div>
@@ -35,18 +43,32 @@
     <table>
         <thead>
             <tr>
-                <th>Dispositivo</th>
+                <th>Nombre</th>
+                <th>IP</th>
+                <th>Mascara</th>
                 <th>Subida (Mbps)</th>
                 <th>Bajada (Mbps)</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody id="tablaDispositivos">
-            {% if device %}
+            {% if error%}
+                {{error.message}}
+            {% endif %}
+            {% if devices %}
             {% for device in devices %}
                 <tr>
-                    <td>{{ device.ip }}</td>
-                    <td>{{ device.upload }}</td>
-                    <td>{{ device.download }}</td>
+                    <td>{{device.name}}</td>
+                    <td>{{ device.ip_address }}</td>
+                    <td>{{ device.netmask }}</td>
+                    <td>{{ device.upload_limit }}</td>
+                    <td>{{ device.download_limit }}</td>
+                    <td>
+                        <form action="{% url 'delete_queue' device.ip_address %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="delete option-button">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
             {% endif %}

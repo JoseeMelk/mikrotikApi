@@ -28,7 +28,7 @@ label {
     height: 100%;
 }
 
-.ip {
+.ip, name-queue {
     text-align: center;
     width: 90%;
 }
@@ -59,8 +59,12 @@ label {
 }
 
 .ip-form {
-    width: 55%;
+    width: 40%;
 }
+.mask{
+    width: 10%;
+}
+
 
 button {
     padding: 0.7rem 2rem;
